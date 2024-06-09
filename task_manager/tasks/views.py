@@ -1,11 +1,13 @@
 from rest_framework import viewsets, status, permissions
 from .models import Task, CustomUser
 from .serializers import RegisterSerializer, TaskCreateSerializer,TaskSerializer, UserSerializer
+from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action, permission_classes
+
 
 from datetime import datetime, timezone
 
@@ -65,7 +67,14 @@ class TaskViewSet(viewsets.ViewSet):
     def list(self, request):
         """Lists all tasks related to the current user (either as customer or assignee)."""
         user = self.request.user
-        queryset = Task.objects.filter(customer=user) | Task.objects.filter(assignee=user)
+
+        if user.is_employee:
+            # Сотрудники могут видеть задачи без исполнителя и свои задачи
+            queryset = Task.objects.filter(Q(assignee__isnull=True) | Q(assignee=user))
+        elif user.is_customer:
+            # Customers can only see their tasks
+            queryset = Task.objects.filter(customer=user)
+
         serializer = TaskSerializer(queryset, many=True)
         return Response(serializer.data)
   
