@@ -5,8 +5,6 @@ from .models import CustomUser, Task
 
 class RegisterSerializer(serializers.ModelSerializer):
     """Serializer for user registration."""
-    is_customer = serializers.BooleanField(required=False)
-    is_employee = serializers.BooleanField(required=True)
     password = serializers.CharField(write_only=True, validators=[validate_password])
 
     class Meta:

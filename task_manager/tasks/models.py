@@ -8,8 +8,8 @@ class CustomUser(AbstractUser):
     Adds additional fields such as user type (is_customer, is_employee)
     and phone number (phone).
     """
-    is_customer = models.BooleanField(default=False) # flag indicating whether the user is a customer
-    is_employee = models.BooleanField(default=False) # flag indicating whether the user is a employee
+    is_customer = models.BooleanField() # flag indicating whether the user is a customer
+    is_employee = models.BooleanField() # flag indicating whether the user is a employee
     phone = models.CharField(max_length=15, unique=True)
 
     def __str__(self):
