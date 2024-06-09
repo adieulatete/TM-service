@@ -27,7 +27,7 @@ Endpoints:
 cd ~
 git clone https://github.com/adieulatete/TM_service.git
 cd ~/TM_service
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 ### Tests
