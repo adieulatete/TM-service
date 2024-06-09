@@ -156,8 +156,8 @@ class TaskViewSet(viewsets.ViewSet):
         except Task.DoesNotExist:
             return Response({"message": "Task not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        # Checking whether this task can be closed to the employee
-        if task.assignee != request.user | task.status == "COMPLETED":
+        # Checking whether this task can be edit to the employee
+        if task.assignee != request.user or task.status == "COMPLETED":
             return Response({"message": "You are not allowed to edit this task"}, status=status.HTTP_403_FORBIDDEN)
         
         # Change the task report
