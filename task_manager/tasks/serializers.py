@@ -12,7 +12,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class for RegisterSerializer."""
         model = CustomUser
-        fields = ['id', 'username', 'email', 'phone', 'is_customer', 'is_employee']
+        fields = ['id', 'username', 'email', 'phone', 'is_customer', 'is_employee', 'password']
 
     def create(self, validated_data):
         """Create a new user with the validated data."""
