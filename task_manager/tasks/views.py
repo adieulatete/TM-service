@@ -69,8 +69,7 @@ class TaskViewSet(viewsets.ViewSet):
         serializer = TaskSerializer(queryset, many=True)
         return Response(serializer.data)
   
-    @permission_classes([IsCustomer])
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[IsCustomer])
     def create_task(self, request):
         """Allows a customer to create a new task."""
         # Getting the current user
@@ -86,8 +85,7 @@ class TaskViewSet(viewsets.ViewSet):
             return Response(response_serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    @permission_classes([IsEmployee])
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[IsEmployee])
     def take_task(self, request):
         """Allows an employee to take an available task."""
         try:
@@ -110,8 +108,7 @@ class TaskViewSet(viewsets.ViewSet):
         serializer = TaskSerializer(task)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @permission_classes([IsEmployee])
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[IsEmployee])
     def close_task(self, request):
         """Allows an employee to close a task with a report."""
         try:
@@ -140,8 +137,7 @@ class TaskViewSet(viewsets.ViewSet):
         serializer = TaskSerializer(task)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @permission_classes([IsEmployee])
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['post'], permission_classes=[IsEmployee])
     def edit_task(self, request):
         """Allows an employee to edit a task report if the task is not completed."""
         try:
