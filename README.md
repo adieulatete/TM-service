@@ -33,5 +33,7 @@ docker-compose up --build -d
 ### Tests
 
 ```bash
+docker exec -it container_id /bin/bash
+cd task_manager
 python manage.py test
 ```
