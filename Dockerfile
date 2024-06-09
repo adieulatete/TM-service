@@ -16,6 +16,3 @@ RUN pip install --upgrade pip
 RUN pip install poetry
 RUN poetry config virtualenvs.create false
 RUN poetry install
-
-# Run migrations and start the server
-CMD python task_manager/manage.py makemigrations && python task_manager/manage.py migrate && python task_manager/manage.py runserver 0.0.0.0:8000
