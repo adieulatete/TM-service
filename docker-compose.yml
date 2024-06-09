@@ -9,7 +9,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-    command: bash -c "python task_manager/manage.py makemigrations && python task_manager/manage.py migrate && python task_manager/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python task_manager/manage.py makemigrations tasks && python task_manager/manage.py migrate && python task_manager/manage.py runserver 0.0.0.0:8000"
     environment:
       - DEBUG=0
       - DATABASE_URL=sqlite:///db.sqlite3
