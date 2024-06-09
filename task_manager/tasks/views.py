@@ -1,6 +1,6 @@
 from rest_framework import viewsets, status, permissions
 from .models import Task, CustomUser
-from .serializers import RegisterSerializer, TaskSerializer, UserSerializer
+from .serializers import RegisterSerializer, TaskCreateSerializer,TaskSerializer, UserSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -78,10 +78,12 @@ class TaskViewSet(viewsets.ViewSet):
         
         # Сreate an instance of the task, passing the current user as the customer
         task_data = {'customer': customer.id, **request.data} 
-        serializer = TaskSerializer(data=task_data)
+        # Use TaskCreateSerializer for validation
+        serializer = TaskCreateSerializer(data=task_data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            task = serializer.save(customer=customer)
+            response_serializer = TaskSerializer(task)
+            return Response(response_serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @permission_classes([IsEmployee])

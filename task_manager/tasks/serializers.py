@@ -26,8 +26,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'phone', 'is_customer', 'is_employee']
 
 
+class TaskCreateSerializer(serializers.ModelSerializer):
+    """Serializer for create Task model."""
+    class Meta:
+        """Meta class for TaskSerializer."""
+        model = Task
+        fields = '__all__'
+
+
 class TaskSerializer(serializers.ModelSerializer):
-    """Serializer for Task model."""
+    """Serializer for read Task model."""
     customer = serializers.SerializerMethodField()
     assignee = serializers.SerializerMethodField()
 
