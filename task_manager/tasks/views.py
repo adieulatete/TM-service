@@ -1,15 +1,14 @@
-from rest_framework import viewsets, status, permissions
-from .models import Task, CustomUser
-from .serializers import RegisterSerializer, TaskCreateSerializer,TaskSerializer, UserSerializer
+from datetime import datetime, timezone
 from django.db.models import Q
+from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import action, permission_classes
+from rest_framework.decorators import action
+from .models import Task, CustomUser
+from .serializers import RegisterSerializer, TaskCreateSerializer,TaskSerializer, UserSerializer
 
-
-from datetime import datetime, timezone
 
 
 class IsCustomer(permissions.BasePermission):

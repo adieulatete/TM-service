@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import CustomUser, Task
 
+
 class CustomUserModelTest(TestCase):
     """Test case for the CustomUser model."""
     
